@@ -1,0 +1,9 @@
+body{
+	background-image: url("../images/flisol_bg.jpg");
+}
+
+.content{
+	border-radius: 50px;
+	margin: 50px auto;
+	padding: 20px 50px;
+}
