@@ -1,20 +1,12 @@
 package br.ufc.petti.certificadosflisol.controller;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +19,7 @@ import br.ufc.petti.certificadosflisol.util.GenerateImage;
 import br.ufc.petti.certificadosflisol.util.SendEmail;
 
 @Controller
-@RequestMapping(path="/")
-public class MainController {
+public class MainController{
 
 	@Autowired
 	private ParticipanteService participanteService;
@@ -54,24 +45,47 @@ public class MainController {
 		
 	}
 	
-	@RequestMapping(path="/enviarCertificado/{id}")
-	public String enviarCertificado(@PathVariable("id") Long id, RedirectAttributes redAttrs){
+	@RequestMapping(path="/gerarCertificado/{id}")
+	public String gerarCertificado(@PathVariable("id")Long id, RedirectAttributes redAttrs, Model model){
 		Participante participante = participanteService.findById(id);
 		if(participante != null){
 			
 			String pathToModel = MainController.class.getClassLoader().getResource("static/images/modelo.jpg").getPath();
 			String pathToOut = MainController.class.getClassLoader().getResource("static/images/generated/").getPath();
+			String filename = participante.getId() + "_" + participante.getNome().replaceAll(" ", "_") + ".jpg";
+			String pathToOutFile = pathToOut + filename;
+			try {
+				GenerateImage.drawName(participante, pathToModel, pathToOutFile);
+				model.addAttribute("imagePath", filename);
+				model.addAttribute("participanteId", participante.getId());
+				return "certificado";
+			} catch (IOException e) {
+				return "redirect:/";
+			}
+			
+		}
+		else{
+			redAttrs.addFlashAttribute("erro", "Participante não encontrado. Erro interno.");
+			return "redirect:/";
+		}
+			
+	}
+	
+	@RequestMapping(path="/enviarCertificado/{id}")
+	public String enviarCertificado(@PathVariable("id") Long id, RedirectAttributes redAttrs){
+		Participante participante = participanteService.findById(id);
+		if(participante != null){
+			
+			String pathToOut = MainController.class.getClassLoader().getResource("static/images/generated/").getPath();
 			String pathToOutFile = pathToOut + participante.getId() + "_" + participante.getNome().replaceAll(" ", "_") + ".jpg";
 			try {
-				
-				GenerateImage.drawName(participante, pathToModel, pathToOutFile);
 				
 				SendEmail.sendEmail(participante, pathToOutFile);
 				
 				redAttrs.addFlashAttribute("ok", "Seu certificado foi enviado!");
 				return "redirect:/";
 				
-			} catch (IOException | EmailException e) {
+			} catch (EmailException e) {
 				e.printStackTrace();
 				redAttrs.addFlashAttribute("erro", "Erro interno.");
 				return "redirect:/";
