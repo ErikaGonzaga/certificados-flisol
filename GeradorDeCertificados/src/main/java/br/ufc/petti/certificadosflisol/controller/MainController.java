@@ -3,8 +3,6 @@ package br.ufc.petti.certificadosflisol.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufc.petti.certificadosflisol.entity.Participante;
+import br.ufc.petti.certificadosflisol.model.Participante;
 import br.ufc.petti.certificadosflisol.service.ParticipanteService;
 import br.ufc.petti.certificadosflisol.util.GenerateImage;
 import br.ufc.petti.certificadosflisol.util.SendEmail;
@@ -23,9 +21,6 @@ public class MainController{
 
 	@Autowired
 	private ParticipanteService participanteService;
-	
-	@Autowired
-	private ServletContext servletContext;
 	
 	@RequestMapping(path="/")
 	public String index(){

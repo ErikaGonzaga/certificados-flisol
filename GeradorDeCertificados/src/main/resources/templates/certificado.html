@@ -20,14 +20,11 @@
 <body>
 
 	<div class="container white content">
-		<div class="center">
-			<img class="responsive-img" th:src="@{/images/flisol_logo.png}" width="600" />
-		</div>
 		<div class="row">
 			<div class="center">
 				<img class="responsive-img" th:src="@{/images/generated/{image}(image = ${imagePath})}" width="800" />
 			</div>
-			<a th:href="@{/enviarCertificado/{id}(id=${participanteId})}" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Envie-me por e-mail</a>	
+			<!-- a th:href="@{/enviarCertificado/{id}(id=${participanteId})}" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Envie-me por e-mail</a-->	
 		</div>
 	</div>
 

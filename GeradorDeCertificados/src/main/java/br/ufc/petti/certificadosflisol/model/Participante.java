@@ -1,4 +1,4 @@
-package br.ufc.petti.certificadosflisol.entity;
+package br.ufc.petti.certificadosflisol.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +11,9 @@ public class Participante {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	private String nome;
+	
 	private String email;
 	
 	public Long getId() {

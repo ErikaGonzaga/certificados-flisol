@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import br.ufc.petti.certificadosflisol.entity.Participante;
+import br.ufc.petti.certificadosflisol.model.Participante;
 
 public class GenerateImage {
 

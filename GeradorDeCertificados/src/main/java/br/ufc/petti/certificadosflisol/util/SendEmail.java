@@ -5,7 +5,7 @@ import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
 
-import br.ufc.petti.certificadosflisol.entity.Participante;
+import br.ufc.petti.certificadosflisol.model.Participante;
 
 public class SendEmail {
 
@@ -13,8 +13,8 @@ public class SendEmail {
 	private static String from = "petccqx@gmail.com";
 	private static String password = "891338-891430";
 	private static String fromName = "PET - Tecnologia da Informação";
-	private static String subject = "Certificado - FLISoL Quixadá 2017";
-	private static String msg = "Obrigado por participar do FLISoL Quixadá 2017! :D";
+	private static String subject = "Certificado - FLISoL Quixadá 2018";
+	private static String msg = "Obrigado por participar do FLISoL Quixadá 2018! :D";
 	
 	public static void sendEmail(Participante participante, String pathToFile) throws EmailException{
 		
