@@ -18,7 +18,7 @@ public class ParticipanteService {
 		return participanteRepository.findByEmail(email); 
 	}
 	
-	public Participante findById(Long id){
+	public Participante findById(Integer id){
 		return participanteRepository.findOne(id);
 	}
 	public void save(Participante participante) {

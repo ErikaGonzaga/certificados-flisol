@@ -41,7 +41,7 @@ public class MainController{
 	}
 	
 	@RequestMapping(path="/gerarCertificado/{id}")
-	public String gerarCertificado(@PathVariable("id")Long id, RedirectAttributes redAttrs, Model model){
+	public String gerarCertificado(@PathVariable("id") Integer id, RedirectAttributes redAttrs, Model model){
 		Participante participante = participanteService.findById(id);
 		if(participante != null){
 			
@@ -67,7 +67,7 @@ public class MainController{
 	}
 	
 	@RequestMapping(path="/enviarCertificado/{id}")
-	public String enviarCertificado(@PathVariable("id") Long id, RedirectAttributes redAttrs){
+	public String enviarCertificado(@PathVariable("id") Integer id, RedirectAttributes redAttrs){
 		Participante participante = participanteService.findById(id);
 		if(participante != null){
 			
