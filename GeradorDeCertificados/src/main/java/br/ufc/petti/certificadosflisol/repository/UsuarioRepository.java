@@ -11,4 +11,5 @@ import br.ufc.petti.certificadosflisol.model.Usuario;
 @Transactional
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
+	Usuario findByEmail(String email);
 }

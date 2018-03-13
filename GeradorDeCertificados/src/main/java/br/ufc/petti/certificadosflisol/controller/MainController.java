@@ -3,16 +3,25 @@ package br.ufc.petti.certificadosflisol.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufc.petti.certificadosflisol.model.Participante;
+import br.ufc.petti.certificadosflisol.model.Usuario;
 import br.ufc.petti.certificadosflisol.service.ParticipanteService;
+import br.ufc.petti.certificadosflisol.service.UsuarioService;
 import br.ufc.petti.certificadosflisol.util.GenerateImage;
 import br.ufc.petti.certificadosflisol.util.SendEmail;
 
@@ -21,6 +30,51 @@ public class MainController{
 
 	@Autowired
 	private ParticipanteService participanteService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@RequestMapping(value={"/login"}, method=RequestMethod.GET)
+	public ModelAndView login() {
+		ModelAndView mv = new ModelAndView("login");
+		System.out.println("passei aqui");
+		return mv;
+	}
+	
+	@RequestMapping(value="/registration", method=RequestMethod.GET)
+	public ModelAndView registration() {
+		ModelAndView mv = new ModelAndView("registration");
+		mv.addObject("usuario", new Usuario());
+		return mv;
+	}
+	
+	@RequestMapping(value="/registration", method=RequestMethod.POST)
+	public ModelAndView createNewUser(@Valid Usuario usuario, BindingResult bindingResult) {
+		ModelAndView mv = new ModelAndView();
+		Usuario usuarioExist = usuarioService.findUsuarioByEmail(usuario.getEmail());
+		if(usuarioExist != null) {
+			bindingResult.rejectValue("email", "error.user", "Já tem um usuário com esse email");
+		}
+		if(bindingResult.hasErrors()) {
+			mv.setViewName("registration");
+		}else {
+			usuarioService.saveUsuario(usuario);
+			mv.addObject("successMessage", "Usuário registrado com sucesso");
+			mv.addObject("usuario", new Usuario());
+			mv.setViewName("registration");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/home", method=RequestMethod.GET)
+	public ModelAndView home() {
+		ModelAndView mv = new ModelAndView("admin/home");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = usuarioService.findUsuarioByEmail(auth.getName());
+		mv.addObject("userName", "Bem-vindo " + usuario.getNome());
+		mv.addObject("adminMessage", "Conteúdo apenas para administradores");
+		return mv;
+	}
 	
 	@RequestMapping(path="/")
 	public String index(){
