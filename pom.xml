@@ -91,6 +91,9 @@
 				<configuration>
 					<failOnViolation>false</failOnViolation> <!-- this is actually true by default, but can be disabled -->
 					<printFailingErrors>true</printFailingErrors>
+					<rulesets>
+						<ruleset>/rulesets/java/braces.xml</ruleset>
+					</rulesets>
 				</configuration>
 				<executions>
 					<execution>

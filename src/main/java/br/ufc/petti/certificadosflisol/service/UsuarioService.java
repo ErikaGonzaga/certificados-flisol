@@ -6,8 +6,8 @@ import br.ufc.petti.certificadosflisol.model.Usuario;
 
 @Service
 public interface UsuarioService{
-	public Usuario findUsuarioByEmail(String email);
-	public void saveUsuario(Usuario usuario);
+	Usuario findUsuarioByEmail(String email);
+	void saveUsuario(Usuario usuario);
 	
 	
 }
