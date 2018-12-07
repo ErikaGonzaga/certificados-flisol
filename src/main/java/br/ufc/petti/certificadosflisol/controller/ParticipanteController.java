@@ -24,8 +24,9 @@ public class ParticipanteController {
 	
 	@RequestMapping(path="/salvar")
 	public String salvarParticipante(Participante participante) {
-		if(participante != null)
+		if(participante != null){
 			participanteService.save(participante);
+		}
 		return "redirect:/";
 	}
 }
