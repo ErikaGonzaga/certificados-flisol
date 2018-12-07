@@ -16,6 +16,15 @@ public class Participante {
 	
 	private String email;
 	
+	public Participante(Integer id,String nome, String email) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+	}
+	public Participante() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}
