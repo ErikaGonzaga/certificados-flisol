@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<title>Gerador de Certificados - FLISoL Quixadá</title>
+<!--Import Google Icon Font-->
+<link th:href="@{http://fonts.googleapis.com/icon?family=Material+Icons}"
+	rel="stylesheet" />
+<!--Import materialize.css-->
+    <link rel="stylesheet" th:href="@{/css/materialize.min.css}"></link>
+	<link th:href="@{/css/styles.css}"></link>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+	<div class="container white content">
+		<div class="row">
+			<div class="center">
+				<img class="responsive-img" th:src="@{/images/generated/{image}(image = ${imagePath})}" width="800" />
+			</div>
+			<!-- a th:href="@{/enviarCertificado/{id}(id=${participanteId})}" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Envie-me por e-mail</a-->	
+		</div>
+	</div>
+
+	<!--Import jQuery before materialize.js-->
+	<script th:src="@{webjars/jquery/jquery.js}"></script>
+	<script th:src="@{webjars/materializecss/js/materialize.js}"></script>
+</body>
+</html>

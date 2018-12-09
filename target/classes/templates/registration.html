@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http:/www.w3.org/1999/xhtml"
+					xmlns:th="http:/www.thymeleaf.org">
+	<head>
+		<title>Formulário de Registro</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+		<link rel="stylesheet" th:href="@{/css/materialize.min.css}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	</head>
+	<body>
+		<div class="container white content">
+			
+			<form th:action="@{/login}" method="get">
+				<button class="right waves-effect waves-light btn ">Ir para o login</button>
+			</form>
+			<div class="center">
+				<img class="responsive-img" th:src="@{/images/flisol_logo.png}" width="600" />
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<form autocomplete="off" th:action="@{/registration}" th:object="${usuario}"
+					method="post" class="form-horizontal" role="form">
+						<h2>Formulário de Registração</h2>
+						<div class="form-group">
+							<div class="col-sm-9">
+								<label th:field="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+								</label>
+								<input type="text" th:field="*{nome}" placeholder="Nome"
+									class="form-control"></input>	
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-9">
+								<input type="text" th:field="*{email}" placeholder="email"
+									class="form-control"/>
+								<label th:if="${#fields.hasErrors('email')}" th:errors="*{nome}"
+										class="validation-message">
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-9">
+								<input type="password" th:field="*{senha}" placeholder="Senha" class="form-control"/>
+								<label th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-9">
+								<button type="submit" class="waves-effect waves-light btn">Cadastrar Usuário</button>
+							</div>
+						</div>
+						<span th:utext="${successMessage}"></span>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

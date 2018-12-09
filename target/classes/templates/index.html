@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<title>Gerador de Certificados - FLISoL Quixadá</title>
+	<link th:href="@{http://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"></link>
+    <link rel="stylesheet" th:href="@{/css/materialize.min.css}"></link>
+	<link th:href="@{css/main.css}" type="text/css" rel="stylesheet"></link>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+	<div class="container white content">
+		<div class="center">
+			<img class="responsive-img" th:src="@{/images/flisol_logo.png}" width="600" />
+		</div>
+		<div class="row">
+			<form th:action="@{/buscarParticipante}" class="col s12" id="form">
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="email" name="email" type="text" class="validate"/> 
+						<label for="email">E-mail</label>
+					</div>
+				</div>
+				
+				<div th:if="${ok != null}" th:text="${ok}" class="center card-panel green white-text">[...]</div>
+				<div th:if="${erro != null}" th:text="${erro}" class="center card-panel red white-text">[...]</div>
+				
+				<div class="row center">
+					<button type="submit" class="waves-effect waves-light btn green">
+						<i class="material-icons left">assignment_ind</i>Gerar Certificado
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!--Import jQuery before materialize.js-->
+	<script th:src="@{js/materialize.min.js}"></script>
+</body>
+</html>

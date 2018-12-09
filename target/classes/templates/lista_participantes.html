@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<title>Gerador de Certificados - FLISoL Quixadá</title>
+<!--Import Google Icon Font-->
+<link th:href="@{http://fonts.googleapis.com/icon?family=Material+Icons}"
+	rel="stylesheet" />
+<!--Import materialize.css-->
+<link th:href="@{/css/materialize.min.css}" type="text/css" rel="stylesheet" media="screen,projection" />
+
+<link th:href="@{css/main.css}" type="text/css" rel="stylesheet" />
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+	<div class="container white content">
+		<div class="center">
+			<a th:href="@{/}"><img class="responsive-img" th:src="@{/images/flisol_logo.png}" width="400" /></a>
+		</div>
+		<h5>Os seguintes participantes foram encontrados:</h5>
+		<div class="collection">
+	        <th:block th:each="p : ${participantes}">
+				<a th:href="@{/gerarCertificado/{id}(id=${p.id})}" class="collection-item" th:text="${p.nome}">[...]</a> 
+			</th:block>
+	  	</div>
+		
+	</div>
+
+	<!--Import jQuery before materialize.js-->
+	<script th:src="@{webjars/jquery/jquery.js}"></script>
+	<script th:src="@{webjars/materializecss/js/materialize.js}"></script>
+</body>
+</html>
